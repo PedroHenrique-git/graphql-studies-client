@@ -1,0 +1,12 @@
+.footer {
+  background: #cecece;
+  padding: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer .footer-title {
+  font-size: 2.8rem;
+}

@@ -1,0 +1,30 @@
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+form .input-group {
+  padding: 15px 0;
+  width: 100%;
+}
+
+form .input-group p {
+  padding-bottom: 15px;
+  font-size: 2rem;
+}
+
+form .input-group input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 2rem;
+  width: 100%;
+  outline: none;
+}

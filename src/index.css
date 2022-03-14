@@ -4,3 +4,24 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+html {
+  font-size: 62.5%;
+}
+
+html, body {
+  width: 100%;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+button:hover {
+  opacity: .7;
+  transition: opacity 300ms ease-in-out;
+}

@@ -1,0 +1,8 @@
+.simple-message {
+  border-radius: 5px;
+  color: #fff;
+  font-size: 2rem;
+  max-width: 500px;
+  margin: 25px auto 25px auto;
+  padding: 25px;
+}
