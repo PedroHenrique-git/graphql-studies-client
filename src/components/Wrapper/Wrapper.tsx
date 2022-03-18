@@ -4,14 +4,16 @@ import './styles.css';
 
 type WrapperProps = {
   children: React.ReactNode;
+  hasHeader: boolean;
+  hasFooter: boolean;
 };
 
-const Wrapper = ({ children }: WrapperProps) => {
+const Wrapper = ({ children, hasFooter, hasHeader }: WrapperProps) => {
   return (
     <>
-      <Header />
+      {hasHeader ? <Header /> : <></>}
       <main className="wrapper">{children}</main>
-      <Footer />
+      {hasFooter ? <Footer /> : <></>}
     </>
   );
 };

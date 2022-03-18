@@ -1,5 +1,7 @@
 .header {
-  background: #cecece;
+  background: #e5e5e5;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   padding: 25px;
 
   display: flex;

@@ -1,5 +1,7 @@
 .footer {
-  background: #cecece;
+  background: #e5e5e5;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   padding: 25px;
 
   display: flex;

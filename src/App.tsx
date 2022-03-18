@@ -1,11 +1,13 @@
 import { ApolloProvider } from '@apollo/client';
-import Index from './components/Index/Index';
+import { Toaster } from 'react-hot-toast';
 import { client } from './graphql/apollo/client';
+import MyRoutes from './routes/MyRoutes';
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <Index />
+      <MyRoutes />
+      <Toaster />
     </ApolloProvider>
   );
 };

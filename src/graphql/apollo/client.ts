@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { httpLink } from './links/http-link';
 
 const client = new ApolloClient({
-  uri: String(import.meta.env.VITE_GRAPHQL_SERVER_URL),
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 

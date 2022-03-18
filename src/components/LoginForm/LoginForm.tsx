@@ -1,31 +1,49 @@
 import { useMutation } from '@apollo/client';
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { GQL_LOGIN } from '../../graphql/mutations/auth';
+import { authDataManager } from '../../graphql/reactive-vars/auth';
+import { loginFormVar } from '../../graphql/reactive-vars/login-form';
+import LoadingComponent from '../Loading/Loading';
 import SimpleMessage from '../SimpleMessage/SimpleMessage';
 import './styles.css';
 
 const LoginForm = () => {
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [login, { loading, error, data }] = useMutation(GQL_LOGIN);
+  const { userName, password } = loginFormVar.useLoginForm();
+  const loginFormValues = loginFormVar.get();
+  const navigate = useNavigate();
+
+  const [login, { loading, error }] = useMutation(GQL_LOGIN, {
+    onCompleted(data: { login: { userId: string } }) {
+      authDataManager.setVar(userName, data.login.userId, true);
+      navigate({ pathname: '/' });
+    },
+  });
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      alert('you need to send a username and password!');
+    if (!userName || !password) {
+      toast('you need to send a username and password!', {
+        className: 'message',
+      });
       return;
     }
 
     await login({
       variables: {
         data: {
-          userName: username,
+          userName,
           password,
         },
       },
     });
   };
+
+  if (loading) {
+    return <LoadingComponent />;
+  }
 
   return (
     <>
@@ -36,9 +54,12 @@ const LoginForm = () => {
             type="text"
             name="username"
             id="username"
-            value={username}
+            value={userName}
             onChange={(e) => {
-              setUserName(e.target.value);
+              loginFormVar.set({
+                ...loginFormValues,
+                userName: e.target.value,
+              });
             }}
             autoComplete="off"
           />
@@ -50,18 +71,18 @@ const LoginForm = () => {
             name="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              loginFormVar.set({
+                ...loginFormValues,
+                password: e.target.value,
+              })
+            }
             autoComplete="off"
           />
         </div>
-        <button disabled={loading}>login</button>
+        <button>Sign-up</button>
       </form>
       {error ? <SimpleMessage message={error.message} type="error" /> : <></>}
-      {!error && data ? (
-        <SimpleMessage message="successfully logged in" type="success" />
-      ) : (
-        <></>
-      )}
     </>
   );
 };
