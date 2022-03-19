@@ -15,6 +15,7 @@ export const GQL_GET_POSTS = gql`
       title
       createdAt
       user {
+        id
         firstName
         lastName
       }
