@@ -6,7 +6,15 @@
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 25px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .header {
+    justify-content: center;
+  }
 }
 
 .header .header-title {
