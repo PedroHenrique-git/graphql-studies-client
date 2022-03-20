@@ -57,7 +57,9 @@ const Post = ({ post, authData }: PostProps) => {
 
   return (
     <li className="post" key={post.id}>
-      <h3>{post.title}</h3>
+      <Link className="go-to-details" to={`/post-details/${post.id}`}>
+        <h3>{post.title}</h3>
+      </Link>
       <p>
         {post.body.length >= 200 ? post.body.slice(0, 200) + '...' : post.body}
       </p>

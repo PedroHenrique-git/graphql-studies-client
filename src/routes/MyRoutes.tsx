@@ -3,6 +3,7 @@ import CreatePost from '../pages/CreatePost/CreatePost';
 import EditPost from '../pages/EditPost/EditPost';
 import Home from '../pages/Home/Home';
 import Index from '../pages/Login/Login';
+import PostDetailsPage from '../pages/PostDetails/PostDetails';
 import Sighup from '../pages/Signup/Sighup';
 import PrivateRoute from './PrivateRoute';
 
@@ -26,6 +27,14 @@ const MyRoutes = () => {
           element={
             <PrivateRoute>
               <CreatePost />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/post-details/:id"
+          element={
+            <PrivateRoute>
+              <PostDetailsPage />
             </PrivateRoute>
           }
         />

@@ -25,6 +25,9 @@ const Menu = () => {
           <li className="link">
             <Link to="/create-post">create post</Link>
           </li>
+          <li className="link">
+            <Link to="/update-account">update account</Link>
+          </li>
         </ul>
         {authData.isLoggedIn ? <Logout /> : <></>}
       </div>
