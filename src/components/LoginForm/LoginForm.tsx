@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { FormEvent } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GQL_LOGIN } from '../../graphql/mutations/auth';
 import { authDataManager } from '../../graphql/reactive-vars/auth';
 import { loginFormVar } from '../../graphql/reactive-vars/login-form';
@@ -80,7 +80,12 @@ const LoginForm = () => {
             autoComplete="off"
           />
         </div>
-        <button>Sign-up</button>
+        <div className="login-sighup">
+          <button>Login</button>
+          <div className="create-account">
+            <Link to="/signup">create account</Link>
+          </div>
+        </div>
       </form>
       {error ? <SimpleMessage message={error.message} type="error" /> : <></>}
     </>

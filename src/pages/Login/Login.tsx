@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
+import LoginForm from '../../components/LoginForm/LoginForm';
+import Wrapper from '../../components/Wrapper/Wrapper';
 import { useAuthVar } from '../../graphql/reactive-vars/auth';
-import LoginForm from '../LoginForm/LoginForm';
-import Wrapper from '../Wrapper/Wrapper';
 
 const Login = () => {
   const authData = useAuthVar();

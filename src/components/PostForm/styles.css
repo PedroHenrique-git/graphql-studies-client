@@ -29,10 +29,13 @@ form .input-group input {
   outline: none;
 }
 
-.login-sighup {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 25px;
+form .input-group textarea {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 2rem;
   width: 100%;
+  height: 200px;
+  outline: none;
+  resize: none;
 }

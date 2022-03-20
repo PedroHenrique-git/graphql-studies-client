@@ -28,11 +28,3 @@ form .input-group input {
   width: 100%;
   outline: none;
 }
-
-.login-sighup {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 25px;
-  width: 100%;
-}

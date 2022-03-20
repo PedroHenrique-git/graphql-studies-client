@@ -12,14 +12,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   position: fixed;
   left: 0;
   bottom: 0;
 }
 
+@media (max-width: 640px) {
+  .side-menu {
+    max-width: 100%;
+    width: 100%;
+  }    
+}
+
 .menu-closed {
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-200%, 0, 0);
   transition: transform 300ms ease-in-out;
 }
 
@@ -33,4 +41,9 @@
   position: absolute;
   top: 25px;
   left: 25px;
+}
+
+.menu-links {
+  list-style: none;
+  margin-bottom: 100px;
 }
