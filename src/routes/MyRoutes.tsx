@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home';
 import Index from '../pages/Login/Login';
 import PostDetailsPage from '../pages/PostDetails/PostDetails';
 import Sighup from '../pages/Signup/Sighup';
+import UpdateAccount from '../pages/UpdateAccount/UpdateAccount';
 import PrivateRoute from './PrivateRoute';
 
 const MyRoutes = () => {
@@ -43,6 +44,14 @@ const MyRoutes = () => {
           element={
             <PrivateRoute>
               <EditPost />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/update-account"
+          element={
+            <PrivateRoute>
+              <UpdateAccount />
             </PrivateRoute>
           }
         />
