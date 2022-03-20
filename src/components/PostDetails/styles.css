@@ -65,5 +65,15 @@
 }
 
 .post-comments .comment {
+  border-radius: 5px;
+  padding: 15px;
   font-size: 1.8rem;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.post-comments .comment span {
+  font-weight: 900;
+  display: block;
+  margin-bottom: 15px;
 }

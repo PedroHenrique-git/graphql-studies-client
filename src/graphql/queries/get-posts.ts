@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { GQL_FRAGMENT_POST } from '../fragments/post';
 
 export const GQL_POSTS_LIMIT = 2;
 
@@ -10,22 +11,9 @@ export const GQL_GET_POSTS = gql`
     $limit: Int = ${GQL_POSTS_LIMIT}
   ) {
     posts(inputFilter: { _sort: $sort, _order: $order, _start: $start, _limit: $limit }) {
-      id
-      body
-      title
-      createdAt
-      user {
-        id
-        firstName
-        lastName
-      }
-      comments {
-        comment
-        user {
-          firstName
-          lastName
-        }
-      }
+      ...post
     }
   }
+
+  ${GQL_FRAGMENT_POST}
 `;

@@ -9,6 +9,7 @@ type PostProps = {
     id: string;
     body: string;
     title: string;
+    numberOfComments: number;
     user: {
       id: string;
       firstName: string;
@@ -58,7 +59,9 @@ const Post = ({ post, authData }: PostProps) => {
   return (
     <li className="post" key={post.id}>
       <Link className="go-to-details" to={`/post-details/${post.id}`}>
-        <h3>{post.title}</h3>
+        <h3>
+          {post.title} | Comments: {post.numberOfComments}
+        </h3>
       </Link>
       <p>
         {post.body.length >= 200 ? post.body.slice(0, 200) + '...' : post.body}

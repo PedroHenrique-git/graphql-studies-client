@@ -1,6 +1,9 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { GQL_FRAGMENT_COMMENT } from '../../graphql/fragments/comment';
+import { GQL_CREATE_COMMENT } from '../../graphql/mutations/create-comment';
 import GQL_DELETE_POST from '../../graphql/mutations/delete-post';
 import GQL_GET_POST from '../../graphql/queries/get-post';
 import { useAuthVar } from '../../graphql/reactive-vars/auth';
@@ -14,7 +17,13 @@ type PostDetails = {
     title: string;
     comments: {
       comment: string;
+      user: {
+        id: string;
+        firstName: string;
+        lastName: string;
+      };
     }[];
+    numberOfComments: number;
     user: {
       id: string;
       firstName: string;
@@ -26,11 +35,33 @@ type PostDetails = {
 const PostDetails = () => {
   const authData = useAuthVar();
   const navigate = useNavigate();
+  const [comment, setComment] = useState('');
   const { id } = useParams();
 
   const { loading: loadingGet, data } = useQuery<PostDetails>(GQL_GET_POST, {
     variables: {
       postId: id,
+    },
+  });
+
+  const [
+    createComment,
+    { loading: loadingCreateComment, error: errorCreateComment },
+  ] = useMutation(GQL_CREATE_COMMENT, {
+    update: (cache, { data }) => {
+      const postId = cache.identify({ __typename: 'Post', id });
+      cache.modify({
+        id: postId,
+        fields: {
+          comments: (existing) => {
+            const commentRef = cache.writeFragment({
+              fragment: GQL_FRAGMENT_COMMENT,
+              data: data?.createComment,
+            });
+            return existing.concat(commentRef);
+          },
+        },
+      });
     },
   });
 
@@ -71,6 +102,30 @@ const PostDetails = () => {
     }
   };
 
+  const handleCreateComment = async () => {
+    await createComment({
+      variables: {
+        data: {
+          postId: id,
+          comment,
+        },
+      },
+    });
+
+    if (errorCreateComment) {
+      toast(errorCreateComment.message, {
+        className: 'message',
+      });
+      return;
+    }
+
+    toast('Comment has been added!', {
+      className: 'message',
+    });
+
+    setComment('');
+  };
+
   if (loadingGet) {
     return <LoadingComponent />;
   }
@@ -78,7 +133,9 @@ const PostDetails = () => {
   return (
     <div className="post-details-container">
       <div className="post">
-        <h3>{data?.post.title}</h3>
+        <h3>
+          {data?.post.title} | Comments: {data?.post.numberOfComments}
+        </h3>
         <p>{data?.post.body}</p>
         {data?.post.user.id === authData.userId ? (
           <div className="control-buttons">
@@ -98,14 +155,23 @@ const PostDetails = () => {
         <h3>Comments: </h3>
         {data?.post.comments.map((comment) => (
           <p className="comment" key={comment.comment}>
+            <span>
+              User: {comment.user.firstName + ' ' + comment.user.lastName}
+            </span>
+            <span>Comment: </span>
             {comment.comment}
           </p>
         ))}
       </div>
       <div className="post-create-comment">
         <h3>Send a commentary: </h3>
-        <textarea></textarea>
-        <button>Send</button>
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        ></textarea>
+        <button disabled={loadingCreateComment} onClick={handleCreateComment}>
+          {loadingCreateComment ? 'Loading...' : 'Send'}
+        </button>
       </div>
     </div>
   );

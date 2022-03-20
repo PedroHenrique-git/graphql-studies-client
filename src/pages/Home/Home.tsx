@@ -12,6 +12,7 @@ type Posts = {
     id: string;
     body: string;
     title: string;
+    numberOfComments: number;
     user: {
       id: string;
       firstName: string;
